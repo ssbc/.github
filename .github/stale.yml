@@ -4,7 +4,7 @@ daysUntilStale: 90
 # Number of days of inactivity before an Issue or Pull Request with the stale label is closed.
 # Set to false to disable. If disabled, issues still need to be closed manually, but will remain marked as stale.
 pulls:
-  daysUntilClose: false
+  daysUntilClose: 60
 issues:
   daysUntilClose: 30
 
