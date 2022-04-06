@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: staltz/gha-sandbox@v1
+      - uses: staltz/gha-sandbox@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SSBC_MEMBERS }}
           org: ssbc
