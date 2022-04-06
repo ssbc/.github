@@ -1,0 +1,13 @@
+name: SSBC Members
+
+on: workflow_dispatch
+
+jobs:
+  members:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: staltz/gha-sandbox@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          org: ssbc
