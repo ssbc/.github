@@ -4,7 +4,7 @@ The members of this organization are maintainers of those libraries.
 
 **To become a member**, you must:
 
-1. Abide by the Code of Conduct
+1. Abide by the [Code of Conduct](https://github.com/ssbc/.github/blob/master/CODE_OF_CONDUCT.md)
 2. Have had created enough pull requests to our repos and gotten them merged by others members
 3. Have been active at least once during the last 12 months
 
