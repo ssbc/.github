@@ -1,5 +1,13 @@
-# Secure Scuttlebutt Consortium
+*This GitHub organization contains common libraries used to build peer-to-peer SSB applications.*
 
-## About
+The members of this organization are maintainers of those libraries.
 
-Test test
+**To become a member**, you must:
+
+1. Abide by the Code of Conduct
+2. Have had created enough pull requests to our repos and gotten them merged by others members
+3. Have been active at least once during the last 12 months
+
+The last 2 rules are calculated automatically via [TrustNet Org](https://github.com/staltz/trustnet-org) every Monday as a [GitHub Actions job](https://github.com/ssbc/.github/actions).
+
+[Website](http://scuttlebutt.nz/) | [OpenCollective](https://opencollective.com/secure-scuttlebutt-consortium) | [Protocol Guide](https://ssbc.github.io/scuttlebutt-protocol-guide/) | [Code of conduct](https://github.com/ssbc/.github/blob/master/CODE_OF_CONDUCT.md)
