@@ -1,13 +1,22 @@
 name: SSBC Members
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * MON'
 
 jobs:
   members:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: staltz/gha-sandbox@main
+      - uses: staltz/trustnet-org@v1.1.0
         with:
           token: ${{ secrets.SSBC_MEMBERS }}
           org: ssbc
+          pioneer: dominictarr
+          trustThreshold: 4
+          minMemberCount: 3
+          inactiveAfter: 12 # months
+          blocklist: |
+            dependabot[bot]
