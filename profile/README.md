@@ -1,8 +1,8 @@
 *This GitHub organization contains common libraries used to build peer-to-peer SSB applications.*
 
-The members of this organization are maintainers of those libraries.
+The members of this organization are maintainers of those libraries, they have admin powers, and can merge pull requests.
 
-As a member, you have admin access to this org, and can merge pull requests. **To become a member** you must:
+**To become a member** you must:
 
 1. Abide by the [Code of Conduct](https://github.com/ssbc/.github/blob/master/CODE_OF_CONDUCT.md)
 2. Have 2-factor authentication enabled on your GitHub account
