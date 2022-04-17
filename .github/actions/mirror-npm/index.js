@@ -38,7 +38,7 @@ async function run() {
 
     console.log('Repos:');
     await forEachSourceRepo(octokit, org, (repo) => {
-      const {exitCode, stdout, stderr} = execa('npm', [
+      const {exitCode, stdout, stderr} = await execa('npm', [
         'info',
         repo.name,
         '--json',
