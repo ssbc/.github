@@ -11079,28 +11079,28 @@ async function run() {
         const packageJson = JSON.parse(
           Buffer.from(content, encoding).toString('utf8'),
         );
-        console.log(packageJson);
         pkgName = packageJson.name;
       } catch (err) {
         return;
       }
       let response;
       try {
-        response = await execa('npm', ['info', pkgName, '--json']);
+        response = await execa('npm', ['owner', 'ls', pkgName]);
       } catch (e) {
         return;
       }
       if (response.exitCode === 0) {
-        const npmPkg = JSON.parse(response.stdout);
         console.log(`${pkgName} is an npm package`);
-        const prevOwners = npmPkg.maintainers.map((s) => s.split(' ')[0]);
+        const prevOwners = response.stdout
+          .split('\n')
+          .map((s) => s.split(' ')[0].trim());
         const rmOwners = prevOwners.filter((s) => !owners.includes(s));
         const addOwners = owners.filter((s) => !prevOwners.includes(s));
         for (const removable of rmOwners) {
-          console.log(`  npm owner rm ${removable} ${npmPkg.name}`);
+          console.log(`  npm owner rm ${removable} ${pkgName}`);
         }
         for (const addable of addOwners) {
-          console.log(`  npm owner add ${addable} ${npmPkg.name}`);
+          console.log(`  npm owner add ${addable} ${pkgName}`);
         }
         console.log('\n');
       }
