@@ -3,14 +3,12 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 async function forEachSourceRepo(octokit, org, cb) {
-  let count = 0;
   for await (const response of octokit.paginate.iterator(
     octokit.rest.repos.listForOrg,
     {org, type: 'sources'},
   )) {
     const page = response.data;
     for (const repo of page) {
-      if (++count === 10) return;
       await cb(repo);
     }
   }
