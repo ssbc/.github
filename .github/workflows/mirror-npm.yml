@@ -3,28 +3,17 @@ name: Mirror NPM
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
+      owners:
+        description: 'NPM accounts to give publish permissions, separated by commas'
         required: true
         type: string
 
 jobs:
-  print-tag:
+  mirror-npm:
     runs-on: ubuntu-latest
-    if:  ${{ github.event.inputs.print_tags == 'true' }}
     steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ github.event.inputs.tags }}
+      - uses: ./.github/actions/mirror-npm/action.yml
+        with:
+          token: ${{ secrets.SSBC_MEMBERS }}
+          org: ${{ github.repository_owner }}
+          owners: ${{ github.event.inputs.owners }}

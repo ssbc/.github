@@ -1,0 +1,17 @@
+name: 'Mirror-NPM'
+description: 'Match GitHub org members with package owners on NPM'
+
+inputs:
+  token:
+    description: 'A Personal Access token'
+    required: true
+  org:
+    description: 'GitHub Organization identifier'
+    required: true
+  owners:
+    description: 'List of NPM package owners'
+    required: false
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
