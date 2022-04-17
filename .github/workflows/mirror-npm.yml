@@ -12,7 +12,7 @@ jobs:
   mirror-npm:
     runs-on: ubuntu-latest
     steps:
-      - uses: ../actions/mirror-npm/action.yml
+      - uses: ./../actions/mirror-npm/action.yml
         with:
           token: ${{ secrets.SSBC_MEMBERS }}
           org: ${{ github.repository_owner }}
