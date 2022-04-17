@@ -11066,7 +11066,8 @@ async function run() {
     }
     console.log('\n');
 
-    console.log('Repos:');
+    console.log('Packages:');
+    let hasRecommendations = false;
     await forEachSourceRepo(octokit, org, async (repo) => {
       let pkgName;
       try {
@@ -11090,22 +11091,38 @@ async function run() {
         return;
       }
       if (response.exitCode === 0) {
-        console.log(`${pkgName} is an npm package`);
+        console.log(`${pkgName} is an npm package. We recommend:`);
         const prevOwners = response.stdout
           .split('\n')
           .map((s) => s.split(' ')[0].trim());
         const rmOwners = prevOwners.filter((s) => !owners.includes(s));
         const addOwners = owners.filter((s) => !prevOwners.includes(s));
+        const commands = [];
         for (const removable of rmOwners) {
-          console.log(`  npm owner rm ${removable} ${pkgName}`);
+          commands.push(`npm owner rm ${removable} ${pkgName}`);
+          hasRecommendations = true;
         }
         for (const addable of addOwners) {
-          console.log(`  npm owner add ${addable} ${pkgName}`);
+          commands.push(`npm owner add ${addable} ${pkgName}`);
+          hasRecommendations = true;
+        }
+        for (let i = 0; i < commands.length; i++) {
+          if (i < commands.length - 1) {
+            console.log(`  ${commands[i]} && \\`);
+          } else {
+            console.log(`  ${commands[i]}`);
+          }
         }
         console.log('\n');
       }
     });
     console.log('\n');
+
+    if (!hasRecommendations) {
+      console.log('No recommendations');
+    } else {
+      core.setFailed('Recommendations found');
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
