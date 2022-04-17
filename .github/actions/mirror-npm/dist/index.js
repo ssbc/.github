@@ -11070,32 +11070,37 @@ async function run() {
     await forEachSourceRepo(octokit, org, async (repo) => {
       let pkgName;
       try {
-        const packageJson = await octokit.rest.repos.getContent({
+        const {data} = await octokit.rest.repos.getContent({
           owner: org,
           repo: repo.name,
           path: 'package.json',
         });
-        console.log(packageJson.data);
+        const {encoding, content} = data;
+        const packageJson = JSON.parse(
+          Buffer.from(content, encoding).toString('utf8'),
+        );
+        console.log(packageJson);
+        pkgName = packageJson.name;
       } catch (err) {
         return;
       }
       let response;
       try {
-        response = await execa('npm', ['info', repo.name, '--json']);
+        response = await execa('npm', ['info', pkgName, '--json']);
       } catch (e) {
         return;
       }
       if (response.exitCode === 0) {
-        const pkg = JSON.parse(response.stdout);
-        console.log(`${pkg.name} is an npm package`);
-        const prevOwners = pkg.maintainers.map((s) => s.split(' ')[0]);
+        const npmPkg = JSON.parse(response.stdout);
+        console.log(`${pkgName} is an npm package`);
+        const prevOwners = npmPkg.maintainers.map((s) => s.split(' ')[0]);
         const rmOwners = prevOwners.filter((s) => !owners.includes(s));
         const addOwners = owners.filter((s) => !prevOwners.includes(s));
         for (const removable of rmOwners) {
-          console.log(`  npm owner rm ${removable} ${pkg.name}`);
+          console.log(`  npm owner rm ${removable} ${npmPkg.name}`);
         }
         for (const addable of addOwners) {
-          console.log(`  npm owner add ${addable} ${pkg.name}`);
+          console.log(`  npm owner add ${addable} ${npmPkg.name}`);
         }
         console.log('\n');
       }
