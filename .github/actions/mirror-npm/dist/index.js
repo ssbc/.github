@@ -11091,7 +11091,6 @@ async function run() {
         return;
       }
       if (response.exitCode === 0) {
-        console.log(`${pkgName} is an npm package. We recommend:`);
         const prevOwners = response.stdout
           .split('\n')
           .map((s) => s.split(' ')[0].trim());
@@ -11105,6 +11104,13 @@ async function run() {
         for (const addable of addOwners) {
           commands.push(`npm owner add ${addable} ${pkgName}`);
           hasRecommendations = true;
+        }
+        if (commands.length === 0) {
+          console.log(
+            `${pkgName} is an npm package and its owners are in sync`,
+          );
+        } else {
+          console.log(`${pkgName} is an npm package. We recommend:`);
         }
         for (let i = 0; i < commands.length; i++) {
           if (i < commands.length - 1) {
