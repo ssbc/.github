@@ -11070,14 +11070,9 @@ async function run() {
 
     console.log('Repos:');
     await forEachSourceRepo(octokit, org, async (repo) => {
-      const {exitCode, stdout, stderr} = await execa('npm', [
-        'info',
-        repo.name,
-        '--json',
-      ]);
-      console.log(exitCode, stdout, stderr);
-      if (exitCode === 0) {
-        const pkg = JSON.parse(stdout);
+      const response = await execa('npm', ['info', repo.name, '--json']);
+      if (response.exitCode === 0) {
+        const pkg = JSON.parse(response.stdout);
         console.log(`${pkg.name} is an npm package`);
         const prevOwners = pkg.maintainers.map((s) => s.split(' ')[0]);
         const rmOwners = prevOwners.filter((s) => !owners.includes(s));
