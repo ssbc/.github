@@ -11068,7 +11068,23 @@ async function run() {
 
     console.log('Repos:');
     await forEachSourceRepo(octokit, org, async (repo) => {
-      const response = await execa('npm', ['info', repo.name, '--json']);
+      let pkgName;
+      try {
+        const packageJson = await octokit.rest.repos.getContent({
+          owner: org,
+          repo: repo.name,
+          path: 'package.json',
+        });
+        console.log(packageJson.data);
+      } catch (err) {
+        return;
+      }
+      let response;
+      try {
+        response = await execa('npm', ['info', repo.name, '--json']);
+      } catch (e) {
+        return;
+      }
       if (response.exitCode === 0) {
         const pkg = JSON.parse(response.stdout);
         console.log(`${pkg.name} is an npm package`);
