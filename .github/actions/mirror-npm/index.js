@@ -38,8 +38,12 @@ async function run() {
 
     console.log('Repos:');
     await forEachSourceRepo(octokit, org, (repo) => {
-      console.log(repo.name);
-      const {exitCode, stdout} = execa('npm', ['info', repo.name, '--json']);
+      const {exitCode, stdout, stderr} = execa('npm', [
+        'info',
+        repo.name,
+        '--json',
+      ]);
+      console.log(exitCode, stdout, stderr);
       if (exitCode === 0) {
         const pkg = JSON.parse(stdout);
         console.log(`${pkg.name} is an npm package`);
