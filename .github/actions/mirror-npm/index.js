@@ -1,4 +1,4 @@
-import {execa} from 'execa';
+const execa = require('execa');
 const core = require('@actions/core');
 const github = require('@actions/github');
 
@@ -11,7 +11,7 @@ async function forEachSourceRepo(octokit, org, cb) {
     const page = response.data;
     for (const repo of page) {
       if (++count === 10) return;
-      cb(repo);
+      await cb(repo);
     }
   }
 }
@@ -37,7 +37,7 @@ async function run() {
     console.log('\n');
 
     console.log('Repos:');
-    await forEachSourceRepo(octokit, org, (repo) => {
+    await forEachSourceRepo(octokit, org, async (repo) => {
       const {exitCode, stdout, stderr} = await execa('npm', [
         'info',
         repo.name,
