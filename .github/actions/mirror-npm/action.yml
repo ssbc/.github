@@ -10,7 +10,7 @@ inputs:
     required: true
   owners:
     description: 'List of NPM package owners'
-    required: false
+    required: true
 
 runs:
   using: 'node16'

@@ -3,14 +3,14 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 async function forEachSourceRepo(octokit, org, cb) {
-  let count = 0
+  let count = 0;
   for await (const response of octokit.paginate.iterator(
     octokit.rest.repos.listForOrg,
     {org, type: 'sources'},
   )) {
     const page = response.data;
     for (const repo of page) {
-      if (++count === 10) return
+      if (++count === 10) return;
       cb(repo);
     }
   }
@@ -21,9 +21,13 @@ async function run() {
     const token = core.getInput('token');
     const org = core.getInput('org');
     const owners = core
-      .getInput('pioneer')
+      .getInput('owners')
       .split(',')
-      .map((s) => s.trim());
+      .map((s) => s.trim())
+      .filter((s) => !!s);
+
+    if (owners.length === 0) core.setFailed('missing "owners" input');
+
     const octokit = github.getOctokit(token);
 
     console.log('Owners');
