@@ -20,3 +20,21 @@ jobs:
           inactiveAfter: 12 # months
           blocklist: |
             dependabot[bot]
+          ignoreRepos: |
+            .github
+            ssbc-org
+            level-sublevel
+            forked-systray
+            open-dyslexic
+            electron-spellchecker-prebuilt
+            paulcbetts-spellchecker-prebuilt
+            keyboard-layout-prebuilt
+            grants-process
+            opencollective_page
+            somebodyshould
+            ssbc-rituals
+            scuttlebutt-guide
+            village-tracker
+            scuttlebutt-technology
+            ssbc.github.io
+            docs
