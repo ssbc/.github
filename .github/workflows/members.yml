@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: staltz/trustnet-org@v1.1.0
+      - uses: staltz/trustnet-org@v1.2.0
         with:
           token: ${{ secrets.SSBC_MEMBERS }}
           org: ssbc
