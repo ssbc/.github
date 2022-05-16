@@ -22,3 +22,4 @@ The table below lists all member additions and removals that have occurred since
 |------|--------|-----|-----|------|
 | 2022-05-02 | Remove | `@soapdog` | Trustnet 3.1 < 4 | [CI job](https://github.com/ssbc/.github/actions/runs/2255427973) |
 | 2022-05-02 | Remove | `@regular` | Trustnet 3.7 < 4 | [CI job](https://github.com/ssbc/.github/actions/runs/2255427973) |
+| 2022-05-16 | Add | `@mycognosist` | Trustnet 6.2 >= 4 | [CI job](https://github.com/ssbc/.github/actions/runs/2330882580) |
