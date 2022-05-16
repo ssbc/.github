@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: staltz/trustnet-org@v1.2.0
+      - uses: staltz/trustnet-org@v1.2.1
         with:
           token: ${{ secrets.SSBC_MEMBERS }}
           org: ssbc
@@ -38,3 +38,9 @@ jobs:
             scuttlebutt-technology
             ssbc.github.io
             docs
+            one.camp.scuttlebutt.nz
+            two.camp.scuttlebutt.nz
+            scuttlebot.io
+            handbook.scuttlebutt.nz
+            scuttlebutt-mars-workshop
+            systrayhelper
